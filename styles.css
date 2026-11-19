@@ -147,3 +147,9 @@ h3 { font-size: 1.15rem; margin: 0 0 0.25rem; }
 .pay .button { border: 0; font: inherit; font-weight: 600; cursor: pointer; text-align: center; }
 .pay .coffee-pay { background: var(--green); color: var(--on-green); }
 .pay .coffee-pay:hover { background: var(--green-hover); }
+
+/* "Securely handled by Stripe" note */
+.secure { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin-top: 2rem; color: var(--muted); font-size: 0.95rem; }
+.secure p { margin: 0; flex: 1 1 16rem; }
+.secure .lock { flex: none; color: var(--green); }
+.secure img { display: block; height: 34px; width: auto; }

@@ -14,7 +14,7 @@
   <meta name="twitter:card" content="summary">
   <meta name="color-scheme" content="light dark">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/styles.css?v=3">
+  <link rel="stylesheet" href="/styles.css?v=4">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -58,13 +58,18 @@
       </fieldset>
 
       <div class="pay" id="pay-methods">
-        <button type="submit" class="button coffee-pay" data-method="stripe" hidden>Pay <span class="amt">£5</span> by card, Google Pay, Apple Pay or bank<span class="visually-hidden"> (opens in a new tab)</span></button>
-        <button type="submit" class="button paypal-pay" data-method="paypal" hidden>Pay <span class="amt">£5</span> with PayPal<span class="visually-hidden"> (opens in a new tab)</span></button>
+        <button type="submit" class="button coffee-pay">Pay <span class="amt">£5</span> by card, Google Pay, Apple Pay or bank<span class="visually-hidden"> (opens in a new tab)</span></button>
       </div>
-      <p id="pay-soon" class="hint" hidden>Payments are being set up. Please check back soon!</p>
       <noscript><p>This form needs JavaScript. You can also reach me through the <a href="/contact/">contact page</a>.</p></noscript>
     </form>
-    <p class="hint">Payments are handled securely by the payment provider. I never see your card or bank details.</p>
+    <div class="secure">
+      <svg class="lock" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Zm3 3.5a1.5 1.5 0 0 1 .75 2.8V18h-1.5v-1.7A1.5 1.5 0 0 1 12 13.5Z"/></svg>
+      <p>Payments are securely handled by Stripe. I never see your card or bank details.</p>
+      <picture>
+        <source srcset="/images/powered-by-stripe-white.svg" media="(prefers-color-scheme: dark)">
+        <img src="/images/powered-by-stripe.svg" alt="Powered by Stripe" width="150" height="34">
+      </picture>
+    </div>
   </main>
   <footer class="site-footer">
     <div class="wrap">
@@ -73,6 +78,6 @@
     </div>
   </footer>
   <script src="/email.js" defer></script>
-  <script src="/support.js?v=3" defer></script>
+  <script src="/support.js?v=4" defer></script>
 </body>
 </html>

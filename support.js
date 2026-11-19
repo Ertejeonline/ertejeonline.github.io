@@ -1,16 +1,11 @@
-// Tip form on /support/. Fill in PAY once the payment accounts exist.
-// Leave a value empty ("") to hide that payment option.
-var PAY = {
-  // Stripe Payment Links: one per preset amount, plus one "customer chooses what to pay" link for other amounts.
-  stripe: {
-    2: "https://donate.stripe.com/aFa3cw4Mi5TKgzw7LU8AE02",
-    5: "https://donate.stripe.com/5kQdRa0w24PG974giq8AE04",
-    10: "https://donate.stripe.com/9B628s7Yu95Werogiq8AE01",
-    20: "https://donate.stripe.com/eVq28sbaGaa00Ayc2a8AE03",
-    other: "https://donate.stripe.com/8x2aEYgv00zq8300js8AE00"
-  },
-  // PayPal.me username (the part after paypal.me/). The amount is added to the link automatically.
-  paypalMe: ""
+// Tip form on /support/. Sends the visitor to the matching Stripe Payment Link.
+// One link per preset amount, plus one "customer chooses what to pay" link for other amounts.
+var STRIPE_LINKS = {
+  2: "https://donate.stripe.com/aFa3cw4Mi5TKgzw7LU8AE02",
+  5: "https://donate.stripe.com/5kQdRa0w24PG974giq8AE04",
+  10: "https://donate.stripe.com/9B628s7Yu95Werogiq8AE01",
+  20: "https://donate.stripe.com/eVq28sbaGaa00Ayc2a8AE03",
+  other: "https://donate.stripe.com/8x2aEYgv00zq8300js8AE00"
 };
 
 (function () {
@@ -19,20 +14,13 @@ var PAY = {
   var radios = form.querySelectorAll('input[name="amount"]');
   var other = document.getElementById("amt-other");
   var error = document.getElementById("amt-error");
-  var stripeBtn = form.querySelector('[data-method="stripe"]');
-  var paypalBtn = form.querySelector('[data-method="paypal"]');
-
-  var hasStripe = Object.keys(PAY.stripe).some(function (k) { return PAY.stripe[k]; });
-  stripeBtn.hidden = !hasStripe;
-  paypalBtn.hidden = !PAY.paypalMe;
-  document.getElementById("pay-soon").hidden = hasStripe || !!PAY.paypalMe;
 
   function selected() {
     for (var i = 0; i < radios.length; i++) if (radios[i].checked) return radios[i].value;
     return null;
   }
 
-  // Returns the amount as a number, or null with an error message shown.
+  // Returns the amount as a number, or null if it isn't a valid amount.
   function amount() {
     var preset = selected();
     if (preset) return Number(preset);
@@ -48,8 +36,7 @@ var PAY = {
 
   function update() {
     var n = amount();
-    var text = n ? fmt(n) : "";
-    form.querySelectorAll(".amt").forEach(function (el) { el.textContent = text; });
+    form.querySelectorAll(".amt").forEach(function (el) { el.textContent = n ? fmt(n) : ""; });
     other.setAttribute("aria-invalid", other.value && !n && !selected() ? "true" : "false");
   }
 
@@ -70,15 +57,9 @@ var PAY = {
       other.focus();
       return;
     }
-    var method = e.submitter ? e.submitter.dataset.method : (hasStripe ? "stripe" : "paypal");
-    var url;
-    if (method === "paypal") {
-      url = "https://paypal.me/" + encodeURIComponent(PAY.paypalMe) + "/" + n.toFixed(2) + "GBP";
-    } else {
-      var preset = selected();
-      url = (preset && PAY.stripe[preset]) || PAY.stripe.other;
-    }
-    if (url) window.open(url, "_blank", "noopener");
+    var preset = selected();
+    var url = (preset && STRIPE_LINKS[preset]) || STRIPE_LINKS.other;
+    window.open(url, "_blank", "noopener");
   });
 
   update();
