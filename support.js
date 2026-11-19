@@ -2,7 +2,14 @@
 // Leave a value empty ("") to hide that payment option.
 var PAY = {
   // Stripe Payment Links: one per preset amount, plus one "customer chooses what to pay" link for other amounts.
-  stripe: { 2: "", 5: "", 10: "", 20: "", other: "" },
+  // TEST MODE links (sandbox). Replace with live links before publishing.
+  stripe: {
+    2: "https://donate.stripe.com/test_4gMdRaewX0SvdwufsJ7kc00",
+    5: "https://donate.stripe.com/test_3cI00k88zat5642gwN7kc01",
+    10: "https://donate.stripe.com/test_eVqeVe3SjgRt2RQ1BT7kc02",
+    20: "https://donate.stripe.com/test_28E14ofB1eJl786a8p7kc03",
+    other: "https://donate.stripe.com/test_6oUcN64WneJl4ZYgwN7kc04"
+  },
   // PayPal.me username (the part after paypal.me/). The amount is added to the link automatically.
   paypalMe: ""
 };
