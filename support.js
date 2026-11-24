@@ -43,6 +43,20 @@ var STRIPE_LINKS = {
   radios.forEach(function (r) {
     r.addEventListener("change", function () { other.value = ""; error.textContent = ""; update(); });
   });
+  // After tapping an amount, bring the Tip button and the Stripe note into view
+  // (smoothly, unless the visitor prefers reduced motion). Only when they're not
+  // already fully on screen, and not for keyboard arrows between amounts.
+  var bottom = document.querySelector(".secure") || form;
+  form.querySelectorAll(".amounts label").forEach(function (label) {
+    label.addEventListener("click", function () {
+      setTimeout(function () {
+        if (bottom.getBoundingClientRect().bottom <= window.innerHeight) return;
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        bottom.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "end" });
+      }, 0);
+    });
+  });
+
   other.addEventListener("input", function () {
     if (other.value) radios.forEach(function (r) { r.checked = false; });
     error.textContent = "";

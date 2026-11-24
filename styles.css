@@ -153,3 +153,4 @@ h3 { font-size: 1.15rem; margin: 0 0 0.25rem; }
 .secure p { margin: 0; flex: 1 1 16rem; }
 .secure .lock { flex: none; color: var(--green); }
 .secure img { display: block; height: 34px; width: auto; }
+.secure { scroll-margin-bottom: 1rem; } /* room below the badge when an amount tap scrolls it into view */
